@@ -1,0 +1,16 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "pics",
+  out.width = "100%"
+)
+```
+
+# Mustard Seed Community Farm <img align="right" width="270" height="350" src="pics/clara-and-cece.jpg">
+
+Data and analysis for *Mustard Seed Farm* penetrometer measurements, which were taken with the help of *Clara* and *Cece*, pictured here in the broccoli field. 
