@@ -1,6 +1,23 @@
 
-# Mustard Seed Community Farm <img align="right" width="270" height="350" src="pics/clara-and-cece.jpg">
+# Mustard Seed Community Farm <img align="right" width="370" height="500" src="pics/field-map-labelled.png">
 
-Data and analysis for *Mustard Seed Farm* penetrometer measurements,
-which were taken with the help of *Clara* and *Cece*, pictured here in
-the broccoli field.
+Data and analysis for *Mustard Seed Farm* March 2020 soil measurements
+are stored here\! Data were taken with the help of **Clara** and
+**Cece**, pictured below in the broccoli field, and **Alice**,
+**Usman**, and **myself** (Gina).
+
+# Soil Tests
+
+We soil sampled each field and sent it off for nutrient analyses.
+**Alice** is in charge of those results. Maybe they’ll go here someday.
+
+# Penetrometer Measurements
+
+We took readings on how hard the soil was to penetrate across 0-40cm
+depths. Readings were taken at various points in each field.
+
+[A shiny app is
+available](https://vanichols.shinyapps.io/MustardSeedPenetrometer/) to
+explore the penetrometer data.
+
+<img align="left" width="270" height="350" src="pics/clara-and-cece.jpg">
