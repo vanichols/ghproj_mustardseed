@@ -20,4 +20,4 @@ depths. Readings were taken at various points in each field.
 available](https://vanichols.shinyapps.io/MustardSeedPenetrometer/) to
 explore the penetrometer data.
 
-<img align="left" width="270" height="350" src="pics/clara-and-cece.jpg">
+<img align="left" width="500" height="350" src="pics/mustardseed.PNG">
