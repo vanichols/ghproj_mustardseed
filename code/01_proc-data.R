@@ -38,12 +38,12 @@ d <- draw %>%
 # visualize ---------------------------------------------------------------
 
 # Flat, map style
-d %>% 
+d_out %>% 
   filter(depth_cm <=10) %>% 
   group_by(field, row, column) %>% 
   summarise(resis_kpa = mean(resis_kpa)) %>% 
   ggplot(aes(column, row)) + 
-  geom_tile(aes(fill = resis_kpa)) + 
+  geom_raster(aes(fill = resis_kpa), interpolate = TRUE) + 
   scale_y_reverse() +
   facet_wrap(~field, scales = "free") + 
   scale_fill_viridis_c(option = "plasma") + 
@@ -53,19 +53,84 @@ d %>%
         axis.title = element_blank())
 
 #--individual fields
-d %>% 
+
+library(LaCroixColoR)
+d_out %>% 
   ggplot(aes(depth_cm, resis_kpa, group = samp_id)) + 
-  geom_line() + 
+  geom_line(aes(color = samp_id)) + 
   facet_grid(.~field) + 
   scale_x_reverse() +
+  scale_color_manual(values = lacroix_palette("Pamplemousse", n = 59,type = "continuous")) +
   coord_flip()
 
+#--assess outliers
+pout <- d %>% 
+  ggplot(aes(depth_cm, resis_kpa, group = samp_id)) + 
+  geom_line(aes(color = samp_id)) + 
+  facet_grid(.~field) + 
+  scale_x_reverse() +
+  facet_wrap(~field) +
+  coord_flip()
 
+ggplotly(pout)
+
+d_out <- d %>% 
+  #--completely get rid of
+  filter(!samp_id %in% c("prairie-trees_1", "OG_5")) %>% 
+#--just certain 'levels'
+filter(!(samp_id == "leafbag_7" & depth > 30))
+filter(!(samp_id == "broccoli_16" & depth < 10))
+filter(!(samp_id == "broccoli_14" & depth > 15))
+
+d_out %>% write_csv("data/td_resis-out.csv")
+#--write it for shiny app
+d_out %>% write_csv("MustardSeedPenetrometer/data-resis.csv")
+
+# Flat, map style
+d_out %>% 
+  filter(depth_cm <=10) %>% 
+  group_by(field, row, column) %>% 
+  summarise(resis_kpa = mean(resis_kpa)) %>% 
+  ggplot(aes(column, row)) + 
+  geom_raster(aes(fill = resis_kpa), interpolate = TRUE) + 
+  scale_y_reverse() +
+  facet_wrap(~field, scales = "free") + 
+  scale_fill_viridis_c(option = "plasma") + 
+  labs(subtitle = "Top Is North",
+       title = "0-10 cm Penetration Resistance") + 
+  theme_minimal() + 
+  theme(axis.text = element_blank(),
+        axis.title = element_blank())
+
+
+# Flat, map style
+d_out %>% 
+  filter(depth_cm > 10, depth_cm <20) %>% 
+  group_by(field, row, column) %>% 
+  summarise(resis_kpa = mean(resis_kpa)) %>% 
+  ggplot(aes(column, row)) + 
+  geom_raster(aes(fill = resis_kpa), interpolate = TRUE) + 
+  scale_y_reverse() +
+  facet_wrap(~field, scales = "free") + 
+  scale_fill_viridis_c(option = "plasma") + 
+  labs(title = "Top Is North") + 
+  theme_minimal() + 
+  theme(axis.text = element_blank(),
+        axis.title = element_blank())
+
+
+
+
+
+library(plotly)
 # all together, compared
-d %>% 
+p1 <- d_out %>% 
   group_by(field, depth_cm) %>% 
-  summarise(resis_kpa = mean(resis_kpa, na.rm = T)) %>% 
-  ggplot(aes(depth_cm, resis_kpa)) + 
-  geom_line(aes(color = field), size = 4) + 
+  mutate(mresis_kpa = mean(resis_kpa, na.rm = T)) %>% 
+  ggplot(aes(color = field)) + 
+  geom_line(aes(depth_cm, resis_kpa, group = samp_id)) +
+  geom_line(aes(depth_cm, mresis_kpa), size = 4) + 
   scale_x_reverse() +
   coord_flip()
+
+ggplotly(p1)
