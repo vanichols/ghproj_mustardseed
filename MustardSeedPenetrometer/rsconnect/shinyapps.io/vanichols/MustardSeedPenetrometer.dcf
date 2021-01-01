@@ -5,8 +5,8 @@ account: vanichols
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1983942
-bundleId: 2914979
+bundleId: 4048725
 url: https://vanichols.shinyapps.io/MustardSeedPenetrometer/
-when: 1584998485.53307
+when: 1609528495.20222
 asMultiple: FALSE
 asStatic: FALSE
