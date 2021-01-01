@@ -98,7 +98,7 @@ ui <-
                                  plotOutput("plot1", height = "800px", )
                                  )
                            )
-                           ),
+                      ),
                            #--end tab
                   
                   ###--start tab3----
@@ -130,46 +130,47 @@ ui <-
                           ),
                           
                           column(9,
-                                 plotOutput("plot2")
+                                 plotOutput("plot2", height = "800px")
                           )
                       )
-                  ),
-                  #--end tab
-                  
-                  tabPanel("Mean Profiles",
-                           
-                           fluidRow(
-                               column(3,
-                                      br(),
-                                      selectizeInput('myf2',
-                                                     'Select a Field:',
-                                                     dd_field,
-                                                     "All Fields"),
-                                      br(),
-                                      selectizeInput(
-                                          'mylc2',
-                                          'Select Your Favorite LaCroix Flavor:',
-                                          dd_lc,
-                                          "PeachPear"
-                                      ),
-                                      br(),
-                                      tags$img(
-                                          src = "field-map-labelled.png",
-                                          height = 400,
-                                          width = 300,
-                                          align = "center"
-                                          
-                                      )
-                               ),
-                               
-                               column(9,
-                                      plotOutput("plot3")
-                               )
-                           )
                   )
                   #--end tab
-                           
-              ))
+                  
+                  # tabPanel("Mean Profiles",
+                  #          
+                  #          fluidRow(
+                  #              column(3,
+                  #                     br(),
+                  #                     selectizeInput('myf2',
+                  #                                    'Select a Field:',
+                  #                                    dd_field,
+                  #                                    "All Fields"),
+                  #                     br(),
+                  #                     selectizeInput(
+                  #                         'mylc2',
+                  #                         'Select Your Favorite LaCroix Flavor:',
+                  #                         dd_lc,
+                  #                         "PeachPear"
+                  #                     ),
+                  #                     br(),
+                  #                     tags$img(
+                  #                         src = "field-map-labelled.png",
+                  #                         height = 400,
+                  #                         width = 300,
+                  #                         align = "center"
+                  #                         
+                  #                     )
+                  #              ),
+                  #              
+                  #              column(9,
+                  #                     plotOutput("plot3")
+                  #              )
+                  #          )
+                  # )
+                  # #--end tab
+                  #     
+              )
+              )
 
 
 server <- function(input, output) {
@@ -223,7 +224,7 @@ server <- function(input, output) {
         dataset2() %>%
             ggplot(aes(depth_cm, resis_kpa, group = samp_id)) +
             geom_line(aes(color = field)) +
-            facet_grid(.~field) +
+            #facet_grid(.~field) +
             scale_color_manual(values = lacroix_palette(as.name(input$mylc), type = "discrete")) +
             labs(y = "Resistance (kPa)",
                  x = "Depth (cm)") +
